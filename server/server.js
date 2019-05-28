@@ -5,7 +5,7 @@ const expressJwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
 
-const port = 9000;
+const port = 9009;
 const jwtSecret = Buffer.from('Zn8Q5tyZ/G1MHltc4F/gTkVJMlrbKiZt', 'base64');
 
 const app = express();
