@@ -23,18 +23,26 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+// "Job" must match the resolver
+const jobDetailFragment = gql`
+  fragment JobDetail on Job {
+    id
+    title
+    company {
+      id
+      name
+    }
+    description
+  }
+`
+
 const creatJobMutation = gql`
   mutation CreateJob($input: CreateJobInput) {
     job: createJob(input: $input) {
-      id
-      title
-      company {
-        id
-        name
-      }
-      description
+      ...JobDetail
     }
   }
+  ${jobDetailFragment}
 `;
 
 const companyQuery = gql`
@@ -54,15 +62,10 @@ const companyQuery = gql`
 const jobQuery = gql`
   query JobQuery($id: ID!){
     job(id: $id) {
-      id
-      title
-      company {
-        id
-        name
-      }
-      description
+      ...JobDetail
     }
   }
+  ${jobDetailFragment}
 `;
 
 const jobsQuery = gql`
